@@ -30,6 +30,9 @@ var creds string
 // profile for AWS creds.
 var profile string
 
+// colorize output.
+var noColor bool
+
 // Session instance.
 var Session *session.Session
 
@@ -58,6 +61,7 @@ func init() {
 	f.StringVarP(&logLevel, "log-level", "l", "info", "Log severity level")
 	f.StringVarP(&profile, "profile", "p", "", "AWS profile to use")
 	f.StringVar(&creds, "credentials", "", "AWS credentials file to use (~/.aws/credentials)")
+	f.BoolVar(&noColor, "no-color", false, "Do not colorize output")
 
 	Command.SetHelpTemplate("\n" + Command.HelpTemplate())
 }

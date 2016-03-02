@@ -69,7 +69,11 @@ func outputTFvars() {
 func outputList() {
 	fmt.Println()
 	for _, fn := range root.Project.Functions {
-		fmt.Printf("  \033[%dm%s\033[0m\n", colors.Blue, fn.Name)
+		color := colors.Blue
+		if noColor, _ := root.Command.PersistentFlags().GetBool("no-color"); noColor {
+			color = colors.None
+		}
+		fmt.Printf("  \033[%dm%s\033[0m\n", color, fn.Name)
 		if fn.Description != "" {
 			fmt.Printf("    description: %v\n", fn.Description)
 		}

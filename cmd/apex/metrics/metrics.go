@@ -69,9 +69,14 @@ func run(c *cobra.Command, args []string) error {
 
 	fmt.Println()
 	for _, fn := range root.Project.Functions {
+		color := colors.Blue
+		if noColor, _ := root.Command.PersistentFlags().GetBool("no-color"); noColor {
+			color = colors.None
+		}
+
 		fnMetrics := aggregated[fn.FunctionName]
 
-		fmt.Printf("  \033[%dm%s\033[0m\n", colors.Blue, fn.Name)
+		fmt.Printf("  \033[%dm%s\033[0m\n", color, fn.Name)
 		fmt.Printf("    invocations: %v\n", fnMetrics.Invocations)
 		fmt.Printf("    duration: %vms\n", fnMetrics.Duration)
 		fmt.Printf("    throttles: %v\n", fnMetrics.Throttles)
